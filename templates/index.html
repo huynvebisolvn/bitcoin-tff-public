@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: comic sans ms;
+      }
+      .row {
+        margin-left:-5px;
+        margin-right:-5px;
+      }
+
+      .column {
+        width: 50%;
+        padding: 5px;
+        margin: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="column">
+        <table>
+          <tr><h3>BTC/USDT</h3></tr>
+          <tr>
+            <th colspan="2">
+				<form action="/long/" method="post">
+					<button name="longBtn" type="submit">LONG</button>
+				</form>
+			</th>
+            <th colspan="2">
+				<form action="/longclose/" method="post">
+					<button name="longcloseBtn" type="submit">LONG CLOSE</button>
+				</form>
+			</th>
+          </tr>
+          <tr>
+            <td colspan="2" style="color:green;">{{ "%0.6f" | format(usdt | float) }} USDT</td>
+            <td colspan="2" style="color:gold;">{{ "%0.6f" | format(btc | float) }} BTC</td>
+          </tr>
+          <tr>
+            <th>Type</th>
+            <th>Time</th>
+            <th>Amount</th>
+            <th>Price</th>
+          </tr>
+          {%for item in orders%}
+          <tr>
+            <td>{{loop.index}}: {{item.side}}</td>
+            <td>{{item.timestamp|format_dateTime}}</td>
+            <td>{{ "%0.6f" | format(item.cost | float) }}</td>
+            <td>{{ "%0.2f" | format(item.average | float) }}</td>
+          </tr>
+          {%endfor%}
+        </table>
+      </div>
+
+    </div>
+    <h4 style="color: orange; text-align: right;">IP: {{ ip }}</h4>
+  </body>
+</html>
