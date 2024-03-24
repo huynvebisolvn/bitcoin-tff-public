@@ -1,0 +1,2 @@
+select pgp_sym_encrypt('password','key','compress-algo=1, cipher-algo=aes256'));
+select pgp_sym_decrypt('hash','key');
